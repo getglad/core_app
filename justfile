@@ -58,7 +58,7 @@ add_github:
 
 ###
 # supabase
-# 
+#
 ###
 
 update_config:
