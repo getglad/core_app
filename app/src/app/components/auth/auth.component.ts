@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { SupabaseService } from '../service/auth/supabase.service';
+import { SupabaseService } from '@services/auth/supabase.service';
 
 @Component({
   selector: 'app-auth',

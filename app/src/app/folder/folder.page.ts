@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SupabaseService } from '../service/auth/supabase.service';
+import { SupabaseService } from '@services/auth/supabase.service';
 
 @Component({
   selector: 'app-folder',

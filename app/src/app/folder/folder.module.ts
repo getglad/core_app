@@ -6,8 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { FolderPageRoutingModule } from './folder-routing.module';
 
-import { AccountComponent } from '../account/account.component';
-import { AuthComponent } from '../auth/auth.component';
+import { AccountComponent } from '@components/account/account.component';
+import { AuthComponent } from '@components/auth/auth.component';
 import { FolderPage } from './folder.page';
 
 @NgModule({
