@@ -55,3 +55,25 @@ add_github:
     op run --no-masking --env-file="./.env" -- printenv DEPLOY_KEY | cat > ~/.ssh/id_rsa
     chmod 600  ~/.ssh/id_rsa
     eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+
+###
+# supabase
+#
+###
+
+update_config:
+    op inject -i ./supabase/config.toml.tpl -o ./supabase/config.toml
+
+refresh_supabase: update_config
+    supabase stop
+    supabase start
+
+###
+# web app
+###
+
+update_web_app:
+    op inject -i ./app/tpl/environment.ts.tpl -o ./app/src/environments/environment.ts
+
+serve: update_config
+    cd app && npm run start
