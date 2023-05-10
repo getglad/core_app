@@ -5,7 +5,7 @@
         <!-- Mobile menu button-->
         <button
           type="button"
-          class="collapse-title inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+          class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
           aria-controls="mobile-menu"
           aria-expanded="false"
           (click)="openMenu()"
@@ -125,11 +125,10 @@
 
   <!-- Mobile menu, show/hide based on menu state. -->
   <div
-    tabindex="0"
-    class="collapse {{ collapseOpen }} sm:hidden"
+    class="{{ collapseOpen }} transition-[max-height] sm:hidden"
     id="mobile-menu"
   >
-    <div class="collapse-content space-y-1 px-2 {{ openPadding }} pt-2">
+    <div class="space-y-1 px-2 pb-3 pt-2">
       <a href="#" class="mobile-menu-active" aria-current="page">Dashboard</a>
       <a href="#" class="mobile-menu">Team</a>
       <a href="#" class="mobile-menu">Projects</a>
