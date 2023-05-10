@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DesktopNavComponent } from './desktopnav/desktopnav.component';
+import { MobileNavComponent } from './mobilenav/mobilenav.component';
+import { MobileNavToggleComponent } from './mobilenavtoggle/mobilenavtoggle.component';
 import { ProfileWidgetComponent } from './profile-widget/profile-widget.component';
 
 @Component({
@@ -6,7 +9,12 @@ import { ProfileWidgetComponent } from './profile-widget/profile-widget.componen
   selector: 'app-topnav',
   templateUrl: './topnav.component.html',
   styleUrls: ['./topnav.component.scss'],
-  imports: [ProfileWidgetComponent],
+  imports: [
+    ProfileWidgetComponent,
+    MobileNavComponent,
+    MobileNavToggleComponent,
+    DesktopNavComponent,
+  ],
 })
 export class TopnavComponent implements OnInit {
   @Input()
@@ -15,24 +23,12 @@ export class TopnavComponent implements OnInit {
   block: string = 'block';
   blockOpen: string = 'hidden';
   collapseOpen: string = 'max-h-0 invisible';
-  openPadding: string = '';
 
   constructor() {}
 
   ngOnInit() {}
 
-  openMenu() {
-    console.log('fire');
-    if (this.collapseOpen == 'max-h-0 invisible') {
-      this.collapseOpen = 'max-h-96 visible';
-      this.openPadding = 'pb-3';
-      this.block = 'hidden';
-      this.blockOpen = 'block';
-    } else {
-      this.collapseOpen = 'max-h-0 invisible';
-      this.openPadding = '';
-      this.block = 'block';
-      this.blockOpen = 'hidden';
-    }
+  setCollapseOpen(value: string) {
+    this.collapseOpen = value;
   }
 }
