@@ -10,11 +10,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [AppComponent, SidemenuComponent],
+  declarations: [AppComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule,
+    SidemenuComponent,
     TopnavComponent,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
