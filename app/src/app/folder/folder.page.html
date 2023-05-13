@@ -1,4 +1,4 @@
-<div class="flex" *ngIf="session; else auth">
+<div class="flex">
   <strong class="capitalize" #auth>{{ folder }} b</strong>
   <p>
     Explore
@@ -9,10 +9,4 @@
       >UI Components</a
     >
   </p>
-  <app-account [session]="session"></app-account>
 </div>
-<ng-template #auth>
-  <div class="flex">
-    <app-auth></app-auth>
-  </div>
-</ng-template>
