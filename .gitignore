@@ -3,7 +3,10 @@ supabase/config.toml
 
 # Android
 .idea/
-android/
+*/android/*
+!*/android/app/
+*/android/app/*
+!*/android/app/build.gradle
 
 # Logs
 logs
