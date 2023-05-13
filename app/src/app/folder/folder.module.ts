@@ -18,6 +18,6 @@ import { FolderPage } from './folder.page';
     IonicModule,
     FolderPageRoutingModule,
   ],
-  declarations: [FolderPage, AccountComponent, AuthComponent],
+  declarations: [AccountComponent, AuthComponent, FolderPage],
 })
 export class FolderPageModule {}

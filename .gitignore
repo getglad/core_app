@@ -1,6 +1,10 @@
 # Supabase
 supabase/config.toml
 
+# Android
+.idea/
+android/
+
 # Logs
 logs
 *.log

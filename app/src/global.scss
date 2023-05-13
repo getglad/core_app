@@ -10,17 +10,51 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
+// @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+// @import "~@ionic/angular/css/normalize.css";
+// @import "~@ionic/angular/css/structure.css";
+// @import "~@ionic/angular/css/typography.css";
+// @import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+// @import "~@ionic/angular/css/padding.css";
+// @import "~@ionic/angular/css/float-elements.css";
+// @import "~@ionic/angular/css/text-alignment.css";
+// @import "~@ionic/angular/css/text-transformation.css";
+// @import "~@ionic/angular/css/flex-utils.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ion-router-outlet {
+  @apply container relative;
+}
+
+.menu-active {
+  @apply text-gray-300 rounded-md px-3 py-2 text-sm font-medium;
+  @apply hover:bg-gray-700 hover:text-white;
+}
+
+.menu {
+  @apply bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium;
+}
+
+.mobile-menu-active {
+  @apply bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium;
+}
+
+.mobile-menu {
+  @apply text-gray-300 block rounded-md px-3 py-2 text-base font-medium;
+  @apply hover:bg-gray-700 hover:text-white;
+}
+
+.circle-image {
+  @apply flex rounded-full bg-gray-800 text-sm;
+}
+
+.circle-image-focus {
+  @apply focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800;
+}
