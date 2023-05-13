@@ -77,3 +77,13 @@ update_web_app:
 
 serve: update_config
     cd app && npm run start
+
+###
+# mobile
+###
+
+mo-init:
+    cd ./app && ionic cap add android
+
+mo-build:
+    cd ./app && ionic cap sync
