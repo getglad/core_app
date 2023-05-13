@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SupabaseService } from '@services/auth/supabase.service';
 
 @Component({
   selector: 'app-folder',
@@ -9,15 +8,10 @@ import { SupabaseService } from '@services/auth/supabase.service';
 })
 export class FolderPage implements OnInit {
   public folder!: string;
-  session = this.supabase.session;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private readonly supabase: SupabaseService
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.supabase.authChanges((_, session) => (this.session = session));
   }
 }
