@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { App } from '@capacitor/app';
 import { SupabaseService } from '@services/auth/supabase.service';
 
@@ -19,7 +19,10 @@ export class AppComponent implements OnInit {
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   session = this.supabase.session;
 
-  constructor(private readonly supabase: SupabaseService) {
+  constructor(
+    private ngZone: NgZone,
+    private readonly supabase: SupabaseService
+  ) {
     this.initializeApp();
   }
 
@@ -29,21 +32,20 @@ export class AppComponent implements OnInit {
 
   initializeApp(): void {
     App.addListener('appUrlOpen', (data) => {
-      console.log('App opened with URL:', data);
-
       let params = new URLSearchParams(data['url']);
       let refreshToken = params.get('refresh_token');
       let accessToken = params.get('#access_token');
 
-      if (refreshToken && accessToken) {
-        this.supabase.supabase.auth.setSession({
-          access_token: accessToken,
-          refresh_token: refreshToken,
-        });
-        this.supabase.authChanges((_, session) => (this.session = session));
-      } else {
-        console.log('could not do a thing');
-      }
+      this.ngZone.run(() => {
+        if (refreshToken && accessToken) {
+          this.supabase.supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+        } else {
+          console.log('could not do a thing');
+        }
+      });
     });
   }
 }
