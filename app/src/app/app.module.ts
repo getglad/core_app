@@ -10,9 +10,10 @@ import { TopnavComponent } from '@components/topnav/topnav.component';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, AccountComponent],
+  declarations: [AppComponent, AuthComponent, AccountComponent, MainComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
