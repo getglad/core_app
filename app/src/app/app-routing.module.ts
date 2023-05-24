@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {
+  activeSupabase,
+  supabaseSessionResolver,
+} from '@services/auth/supabase.guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'main',
     pathMatch: 'full',
   },
   {
@@ -16,6 +20,15 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () =>
       import('./main/main.module').then((m) => m.MainPageModule),
+    canActivate: [activeSupabase],
+    resolve: {
+      session: supabaseSessionResolver,
+    },
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginPageModule),
   },
 ];
 

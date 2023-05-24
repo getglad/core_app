@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { App } from '@capacitor/app';
 import { SupabaseService } from '@services/auth/supabase.service';
+import { Session } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-  session = this.supabase.session;
+  session: Session | null = null;
 
   constructor(
     private ngZone: NgZone,
@@ -30,9 +31,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.supabase.authChanges((_, session) => {
-      this.session = session;
-      this.router.navigate(['/main']);
+    this.supabase.authChanges(async (_, session) => {
+      if (await this.supabase.sessionIsValid()) {
+        this.session = session;
+        this.router.navigate(['/main']);
+      } else {
+        this.session = null;
+        this.router.navigate(['/login']);
+      }
     });
   }
 
@@ -42,13 +48,17 @@ export class AppComponent implements OnInit {
       let refreshToken = params.get('refresh_token');
       let accessToken = params.get('#access_token');
 
-      this.ngZone.run(() => {
+      this.ngZone.run(async () => {
         if (refreshToken && accessToken) {
           this.supabase.supabase.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken,
           });
-          this.router.navigate(['/main']);
+          if (await this.supabase.sessionIsValid()) {
+            this.router.navigate(['/main']);
+          } else {
+            this.supabase.signOut();
+          }
         } else {
           console.log('could not do a thing');
         }

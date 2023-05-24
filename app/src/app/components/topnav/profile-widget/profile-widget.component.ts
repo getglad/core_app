@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SupabaseService } from '@services/auth/supabase.service';
 
 @Component({
   standalone: true,
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-widget.component.scss'],
 })
 export class ProfileWidgetComponent implements OnInit {
-  constructor() {}
+  constructor(private readonly supabase: SupabaseService) {}
 
   ngOnInit() {}
+
+  async signOut() {
+    await this.supabase.signOut();
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Profile, SupabaseService } from '@services/auth/supabase.service';
-import { AuthSession } from '@supabase/supabase-js';
+import { Session } from '@supabase/supabase-js';
 
 @Component({
   standalone: true,
@@ -15,7 +15,7 @@ export class AccountComponent implements OnInit {
   profile!: Profile;
 
   @Input()
-  session!: AuthSession;
+  session!: Session | null;
 
   updateProfileForm = this.formBuilder.group({
     username: '',
@@ -42,7 +42,10 @@ export class AccountComponent implements OnInit {
   async getProfile() {
     try {
       this.loading = true;
-      const { user } = this.session;
+      const user = this.session?.user;
+      if (!user) {
+        throw new Error('You must be logged in to get your profile');
+      }
       let { data: profile, error, status } = await this.supabase.profile(user);
 
       if (error && status !== 406) {
@@ -64,7 +67,10 @@ export class AccountComponent implements OnInit {
   async updateProfile(): Promise<void> {
     try {
       this.loading = true;
-      const { user } = this.session;
+      const user = this.session?.user;
+      if (!user) {
+        throw new Error('You must be logged in to update your profile');
+      }
 
       const username = this.updateProfileForm.value.username as string;
       const website = this.updateProfileForm.value.website as string;

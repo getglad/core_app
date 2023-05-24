@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { SupabaseService } from '@services/auth/supabase.service';
 
 @Component({
   standalone: true,
@@ -10,7 +11,11 @@ export class MobileNavComponent implements OnInit {
   @Input()
   collapseOpen!: string;
 
-  constructor() {}
+  constructor(private readonly supabase: SupabaseService) {}
 
   ngOnInit() {}
+
+  async signOut() {
+    await this.supabase.signOut();
+  }
 }

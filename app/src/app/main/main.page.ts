@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { App } from '@capacitor/app';
+import { ActivatedRoute } from '@angular/router';
 import { SupabaseService } from '@services/auth/supabase.service';
+import { Session } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-main',
@@ -8,37 +9,17 @@ import { SupabaseService } from '@services/auth/supabase.service';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-  session = this.supabase.session;
+  session: Session | null = null;
 
   constructor(
     private ngZone: NgZone,
+    private route: ActivatedRoute,
     private readonly supabase: SupabaseService
-  ) {
-    this.initializeApp();
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.supabase.authChanges((_, session) => {
-      this.session = session;
-    });
-  }
-
-  initializeApp(): void {
-    App.addListener('appUrlOpen', (data) => {
-      let params = new URLSearchParams(data['url']);
-      let refreshToken = params.get('refresh_token');
-      let accessToken = params.get('#access_token');
-
-      this.ngZone.run(() => {
-        if (refreshToken && accessToken) {
-          this.supabase.supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken,
-          });
-        } else {
-          console.log('could not do a thing');
-        }
-      });
+    this.route.data.subscribe((data) => {
+      this.session = data['session'];
     });
   }
 }
