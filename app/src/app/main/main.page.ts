@@ -4,12 +4,11 @@ import { SupabaseService } from '@services/auth/supabase.service';
 
 @Component({
   selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  templateUrl: './main.page.html',
+  styleUrls: ['./main.page.scss'],
 })
-export class MainComponent implements OnInit {
+export class MainPage implements OnInit {
   session = this.supabase.session;
-  foo: string = 'bar';
 
   constructor(
     private ngZone: NgZone,

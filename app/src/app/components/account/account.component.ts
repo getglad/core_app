@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Profile, SupabaseService } from '@services/auth/supabase.service';
 import { AuthSession } from '@supabase/supabase-js';
 
 @Component({
+  standalone: true,
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
+  imports: [FormsModule, ReactiveFormsModule],
 })
 export class AccountComponent implements OnInit {
   loading = false;

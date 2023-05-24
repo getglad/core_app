@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupabaseService } from '@services/auth/supabase.service';
 
 @Component({
+  standalone: true,
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
+  imports: [FormsModule, ReactiveFormsModule],
 })
 export class AuthComponent implements OnInit {
   loading = false;

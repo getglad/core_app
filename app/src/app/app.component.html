@@ -1,1 +1,10 @@
-<app-main> </app-main>
+<div
+  contentId="main-content"
+  class="container mx-auto"
+  *ngIf="session; else auth"
+>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</div>
+<ng-template #auth>
+  <app-auth class="container mx-auto"></app-auth>
+</ng-template>
