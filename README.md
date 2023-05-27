@@ -8,6 +8,12 @@
 4. `just serve`
 5. Visit `localhost:4200`
 
+### Note: At the moment this flow requires:
+
+1. the 1Password CLI
+2. a [set of values](https://github.com/getglad/core_app/blob/main/supabase/config.toml.tpl#L74-L77) configured in a vault.
+3. An env var of `APP_ENV` that maps to the 1Password Vault
+
 ## Distributing
 
 ### Mobile
@@ -33,11 +39,14 @@
 
 ## Contributing
 
-### Setting up local env with 1Password
+### Environmental Variables
+
+Many of the commands assume a `.env` file. This file is generated using `update_env`, which updates `.env.tpl`. The best practice for this repo is to update the value of `.env.tpl` on a per project basis.
+
+### Setting up dev container for Github SSH Access with 1Password
 
 1. `eval $(op signin)`
 2. `just add_github`
-3. `just update_config`
 
 ### Running locally
 
@@ -54,3 +63,23 @@
 ### Updating devcontainer
 
 1. `just docker-build`
+
+## Testing
+
+### Mobile
+
+#### Debugging
+
+1. Setup Developer Mode on an Android Device
+2. Use the "Pair Devices Using Wifi" option in Android Studio
+   1. https://developer.android.com/tools/adb#connect-to-a-device-over-wi-fi
+3. `chrome://inspect/#devices` should bring up the console
+
+#### Mobile Deep Linking
+
+1. Set "Redirect URLs" in supabase
+   1. https://app.supabase.com/project/ssaoxpnmbdcjdpvrtdsq/auth/url-configuration
+2. Configure [AndroidManifest.xml](./app/android/app/src/main/AndroidManifest.xml)
+   1. https://ionicframework.com/docs/native/app#android
+3. Configure Supabase to return to the app
+   1. https://supabase.com/docs/guides/auth#mobile-deep-linking-uris

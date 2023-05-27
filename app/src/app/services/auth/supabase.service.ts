@@ -20,7 +20,7 @@ export interface Profile {
   providedIn: 'root',
 })
 export class SupabaseService {
-  private supabase: SupabaseClient;
+  supabase: SupabaseClient;
   _session: AuthSession | null = null;
 
   constructor() {
@@ -58,6 +58,9 @@ export class SupabaseService {
   async signInWithGoogle() {
     const { data, error } = await this.supabase.auth.signInWithOAuth({
       provider: 'google',
+      options: {
+        redirectTo: `${environment.androidDeepLink}://login-callback/&`,
+      },
     });
   }
 
