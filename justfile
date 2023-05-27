@@ -61,21 +61,31 @@ add_github:
 #
 ###
 
-update_config:
+update_supabase_config:
     op inject -i ./supabase/config.toml.tpl -o ./supabase/config.toml
 
-refresh_supabase: update_config
+refresh_supabase: update_supabase_config
     supabase stop
     supabase start
+
+update_env:
+    rm .env
+    cp .env.tpl .env
+    supabase status -o env >> .env
 
 ###
 # web app
 ###
 
-update_web_app:
-    op inject -i ./app/tpl/environment.ts.tpl -o ./app/src/environments/environment.ts
+update_web_app_prod:
+    op inject -i ./app/tpl/environment.ts.tpl -o ./app/src/environments/environment.ts.tpl
+    envsubst < ./app/src/environments/environment.ts.tpl > ./app/src/environments/environment.ts
+    rm ./app/src/environments/environment.ts.tpl
 
-serve: update_config
+update_web_app: update_env
+    envsubst < ./app/tpl/environment.ts.dev.tpl > ./app/src/environments/environment.ts
+
+serve: update_supabase_config update_web_app
     cd app && npm run start
 
 ###
