@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   AuthChangeEvent,
-  AuthSession,
   createClient,
   Session,
   SupabaseClient,
@@ -21,20 +21,29 @@ export interface Profile {
 })
 export class SupabaseService {
   supabase: SupabaseClient;
-  _session: AuthSession | null = null;
+  _session: Session | null = null;
 
-  constructor() {
+  constructor(private router: Router) {
     this.supabase = createClient(
       environment.supabaseUrl,
       environment.supabaseKey
     );
   }
 
-  get session() {
-    this.supabase.auth.getSession().then(({ data }) => {
-      this._session = data.session;
-    });
-    return this._session;
+  get session(): Promise<Session | null> {
+    return (async () => {
+      const { data: session, error } = await this.supabase.auth.getSession();
+      this._session = session.session;
+      return this._session;
+    })();
+  }
+
+  async sessionIsValid(): Promise<boolean> {
+    const session = await this.session;
+    if (session && session.expires_in > 0) {
+      return true;
+    }
+    return false;
   }
 
   profile(user: User) {
@@ -65,7 +74,8 @@ export class SupabaseService {
   }
 
   signOut() {
-    return this.supabase.auth.signOut();
+    this.supabase.auth.signOut();
+    this.router.navigate(['/login']);
   }
 
   updateProfile(profile: Profile) {

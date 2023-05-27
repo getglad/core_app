@@ -43,6 +43,10 @@
 
 Many of the commands assume a `.env` file. This file is generated using `update_env`, which updates `.env.tpl`. The best practice for this repo is to update the value of `.env.tpl` on a per project basis.
 
+This file can be configured with `git update-index --assume-unchanged` to support local changes.
+
+See this [SO answer](https://stackoverflow.com/a/10755704/1886901) for more details.
+
 ### Setting up dev container for Github SSH Access with 1Password
 
 1. `eval $(op signin)`
