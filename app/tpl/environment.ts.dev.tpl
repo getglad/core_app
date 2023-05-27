@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  supabaseUrl: 'op://${APP_ENV}/${SUPABASE_ENV}/url',
-  supabaseKey: 'op://${APP_ENV}/${SUPABASE_ENV}/anon_key/password',
+  supabaseUrl: '${API_URL}',
+  supabaseKey: '${ANON_KEY}',
   androidDeepLink: '${ANDROID_DEEPLINK_PATH}' 
 };
 

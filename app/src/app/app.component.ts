@@ -65,4 +65,23 @@ export class AppComponent implements OnInit {
       });
     });
   }
+
+  initializeApp(): void {
+    App.addListener('appUrlOpen', (data) => {
+      let params = new URLSearchParams(data['url']);
+      let refreshToken = params.get('refresh_token');
+      let accessToken = params.get('#access_token');
+
+      this.ngZone.run(() => {
+        if (refreshToken && accessToken) {
+          this.supabase.supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+        } else {
+          console.log('could not do a thing');
+        }
+      });
+    });
+  }
 }

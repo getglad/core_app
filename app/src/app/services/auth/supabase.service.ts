@@ -68,7 +68,7 @@ export class SupabaseService {
     const { data, error } = await this.supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'io.mgwallet.starter://login-callback/&',
+        redirectTo: `${environment.androidDeepLink}://login-callback/&`,
       },
     });
   }
