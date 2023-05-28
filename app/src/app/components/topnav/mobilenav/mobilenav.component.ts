@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SupabaseService } from '@services/auth/supabase.service';
 
 @Component({
@@ -6,6 +7,7 @@ import { SupabaseService } from '@services/auth/supabase.service';
   selector: 'app-mobile-nav',
   templateUrl: './mobilenav.component.html',
   styleUrls: ['./mobilenav.component.scss'],
+  imports: [RouterLink, RouterLinkActive],
 })
 export class MobileNavComponent implements OnInit {
   @Input()
