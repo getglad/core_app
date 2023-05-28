@@ -20,6 +20,11 @@ export class TopnavComponent implements OnInit {
   @Input()
   name!: string;
 
+  public appPages = [
+    { title: 'Home', url: '/main' },
+    { title: 'Profile', url: '/profile' },
+  ];
+
   block: string = 'block';
   blockOpen: string = 'hidden';
   collapseOpen: string = 'max-h-0 invisible';

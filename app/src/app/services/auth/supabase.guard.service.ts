@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 
 import { SupabaseService } from '@services/auth/supabase.service';
-import { Session } from '@supabase/supabase-js';
+import { AuthSession } from '@supabase/supabase-js';
 
 @Injectable({
   providedIn: 'root',
@@ -18,13 +18,13 @@ class SupabaseGuardService {
 
   constructor(private router: Router, readonly supabase: SupabaseService) {}
 
-  async getSession(): Promise<Session | null> {
+  async getSession(): Promise<AuthSession | null> {
     return await this.supabase.session;
   }
 
   async canActivate(): Promise<boolean> {
     if (await this.supabase.sessionIsValid()) return true;
-    this.supabase.signOut();
+    await this.supabase.signOut();
     return false;
   }
 }
@@ -36,7 +36,7 @@ export const activeSupabase: CanActivateFn = (
   return inject(SupabaseGuardService).canActivate();
 };
 
-export const supabaseSessionResolver: ResolveFn<Session | null> = (
+export const supabaseSessionResolver: ResolveFn<AuthSession | null> = (
   route: ActivatedRouteSnapshot
 ) => {
   return inject(SupabaseGuardService).getSession();

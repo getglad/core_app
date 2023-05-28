@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   AuthChangeEvent,
+  AuthSession,
   createClient,
   Session,
   SupabaseClient,
@@ -21,7 +22,7 @@ export interface Profile {
 })
 export class SupabaseService {
   supabase: SupabaseClient;
-  _session: Session | null = null;
+  _session: AuthSession | null = null;
 
   constructor(private router: Router) {
     this.supabase = createClient(
@@ -30,7 +31,7 @@ export class SupabaseService {
     );
   }
 
-  get session(): Promise<Session | null> {
+  get session(): Promise<AuthSession | null> {
     return (async () => {
       const { data: session, error } = await this.supabase.auth.getSession();
       this._session = session.session;
@@ -73,9 +74,9 @@ export class SupabaseService {
     });
   }
 
-  signOut() {
+  async signOut() {
     this.supabase.auth.signOut();
-    this.router.navigate(['/login']);
+    await this.router.navigate(['/login']);
   }
 
   updateProfile(profile: Profile) {

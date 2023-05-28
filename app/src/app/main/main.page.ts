@@ -1,7 +1,6 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SupabaseService } from '@services/auth/supabase.service';
-import { Session } from '@supabase/supabase-js';
+import { AuthSession } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-main',
@@ -9,13 +8,9 @@ import { Session } from '@supabase/supabase-js';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-  session: Session | null = null;
+  session!: AuthSession;
 
-  constructor(
-    private ngZone: NgZone,
-    private route: ActivatedRoute,
-    private readonly supabase: SupabaseService
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {

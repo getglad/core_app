@@ -1,61 +1,61 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/docker-outside-of-docker-compose
 {
-	"name": "Docker from Docker Compose",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  
-	// Use this environment variable if you need to bind mount your local source code into a new container.
-	"remoteEnv": {
-	  "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-	},
-  
-	"features": {
-	  "ghcr.io/devcontainers/features/common-utils:1": {
-		"installZsh": "true",
-		"upgradePackages": "true",
-		"uid": "1000",
-		"gid": "1000",
-		"installOhMyZsh": "true",
-		"nonFreePackages": "true"
-	  },
-	  "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
-		"version": "latest",
-			"enableNonRootDocker": "true",
-			"moby": "true"	
-	  }
-	},
-  
-	// "runArgs": ["--network=bridge"],
-  
-	// Configure tool-specific properties.
-	"customizations": {
-	  // Configure properties specific to VS Code.
-	  "vscode": {
-		// Add the IDs of extensions you want installed when the container is created.
-		"extensions": [
-		  "ms-azuretools.vscode-docker",
-		  "esbenp.prettier-vscode",
-		  "dbaeumer.vscode-eslint",
-		  "eamodio.gitlens",
-		  "bradlc.vscode-tailwindcss",
-		  "ms-python.python",
-		  "ionic.ionic",
-		  "ms-python.black-formatter",
-		  "njpwerner.autodocstring"
-		]
-	  }
-	},
-  
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-  
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && [ -s \"/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh\" ] && . \"/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh\" && just init_devcontainer && just update"
-	"postCreateCommand": "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && [ -s \"/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh\" ] && . \"/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh\" && just init_devcontainer && just update"
-  
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
-  }
-  
+  "name": "Docker from Docker Compose",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  // Use this environment variable if you need to bind mount your local source code into a new container.
+  "remoteEnv": {
+    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:1": {
+      "installZsh": "true",
+      "upgradePackages": "true",
+      "uid": "1000",
+      "gid": "1000",
+      "installOhMyZsh": "true",
+      "nonFreePackages": "true"
+    },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "version": "latest",
+      "enableNonRootDocker": "true",
+      "moby": "true"
+    }
+  },
+
+  // "runArgs": ["--network=bridge"],
+
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "bradlc.vscode-tailwindcss",
+        "ms-python.python",
+        "ionic.ionic",
+        "ms-python.black-formatter",
+        "njpwerner.autodocstring",
+        "mtxr.sqltools"
+      ]
+    }
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && [ -s \"/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh\" ] && . \"/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh\" && just init_devcontainer && just update"
+  "postCreateCommand": "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" && [ -s \"/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh\" ] && . \"/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh\" && just init_devcontainer && just update"
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}

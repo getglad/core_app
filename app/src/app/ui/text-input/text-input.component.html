@@ -1,0 +1,37 @@
+<label
+  for="{{ formName }}"
+  class="block text-sm font-medium leading-6 text-gray-900"
+>
+  {{ uiLabel }}
+</label>
+<div class="mt-2">
+  <div
+    class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600"
+  >
+    <div *ngIf="form; else noForm" [formGroup]="form">
+      <input
+        type="{{ type }}"
+        name="{{ formName }}"
+        formControlName="{{ formName }}"
+        [value]="value"
+        id="{{ formName }}"
+        autocomplete="{{ formName }}"
+        class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 disabled:text-gray-500"
+        placeholder="{{ placeholder }}"
+        [disabled]="disabled"
+      />
+    </div>
+    <ng-template #noForm>
+      <input
+        type="{{ type }}"
+        name="{{ formName }}"
+        [value]="value"
+        id="{{ formName }}"
+        autocomplete="{{ formName }}"
+        class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 disabled:text-gray-500"
+        placeholder="{{ placeholder }}"
+        [disabled]="disabled"
+      />
+    </ng-template>
+  </div>
+</div>

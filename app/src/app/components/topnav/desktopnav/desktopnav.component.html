@@ -1,9 +1,16 @@
 <div class="hidden sm:ml-6 sm:block">
   <div class="flex space-x-4">
-    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-    <a href="#" class="menu" aria-current="page">Dashboard</a>
-    <a href="#" class="menu-active">Team</a>
-    <a href="#" class="menu-active">Projects</a>
-    <a href="#" class="menu-active">Calendar</a>
+    <a
+      [routerLink]="[p.url]"
+      routerDirection="forward"
+      replaceUrl="true"
+      routerLinkActive="menu"
+      [routerLinkActiveOptions]="{ exact: true }"
+      ariaCurrentWhenActive="page"
+      class="menu-active"
+      *ngFor="let p of appPages; let i = index"
+    >
+      {{ p.title }}
+    </a>
   </div>
 </div>
