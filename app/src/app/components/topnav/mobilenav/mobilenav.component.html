@@ -10,6 +10,16 @@
     <hr />
     <a href="#" class="mobile-menu">Your Profile</a>
     <a href="#" class="mobile-menu">Settings</a>
-    <a (click)="signOut()" class="mobile-menu">Sign out</a>
+    <a
+      [routerLink]="['/login']"
+      routerDirection="forward"
+      replaceUrl="true"
+      routerLinkActive="selected"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="signOut()"
+      class="mobile-menu"
+    >
+      Sign out
+    </a>
   </div>
 </div>

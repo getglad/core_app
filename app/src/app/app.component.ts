@@ -2,7 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { App } from '@capacitor/app';
 import { SupabaseService } from '@services/auth/supabase.service';
-import { Session } from '@supabase/supabase-js';
+import { AuthSession } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-  session: Session | null = null;
+  session: AuthSession | null = null;
 
   constructor(
     private ngZone: NgZone,
@@ -34,10 +34,9 @@ export class AppComponent implements OnInit {
     this.supabase.authChanges(async (_, session) => {
       if (await this.supabase.sessionIsValid()) {
         this.session = session;
-        this.router.navigate(['/main']);
       } else {
         this.session = null;
-        this.router.navigate(['/login']);
+        await this.router.navigate(['/login']);
       }
     });
   }
@@ -55,29 +54,10 @@ export class AppComponent implements OnInit {
             refresh_token: refreshToken,
           });
           if (await this.supabase.sessionIsValid()) {
-            this.router.navigate(['/main']);
+            await this.router.navigate(['/main']);
           } else {
-            this.supabase.signOut();
+            await this.supabase.signOut();
           }
-        } else {
-          console.log('could not do a thing');
-        }
-      });
-    });
-  }
-
-  initializeApp(): void {
-    App.addListener('appUrlOpen', (data) => {
-      let params = new URLSearchParams(data['url']);
-      let refreshToken = params.get('refresh_token');
-      let accessToken = params.get('#access_token');
-
-      this.ngZone.run(() => {
-        if (refreshToken && accessToken) {
-          this.supabase.supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken,
-          });
         } else {
           console.log('could not do a thing');
         }
