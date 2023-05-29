@@ -5,8 +5,9 @@
 1. Open using the `devcontainer` with VS Code
 2. `cd app && npm install`
 3. `supabase start`
-4. `just serve`
-5. Visit `localhost:4200`
+4. `supabase migration up`
+5. `just serve`
+6. Visit `localhost:4200`
 
 ### Note: At the moment this flow requires:
 

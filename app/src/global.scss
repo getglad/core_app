@@ -8,6 +8,10 @@ ion-router-outlet {
   @apply container relative;
 }
 
+*:disabled {
+  cursor: not-allowed;
+}
+
 .menu-active {
   @apply text-gray-300 rounded-md px-3 py-2 text-sm font-medium;
   @apply hover:bg-gray-700 hover:text-white;

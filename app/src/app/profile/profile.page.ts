@@ -1,21 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Profile, SupabaseService } from '@services/auth/supabase.service';
-import { Session } from '@supabase/supabase-js';
+import { AuthSession } from '@supabase/supabase-js';
 
 @Component({
-  standalone: true,
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss'],
-  imports: [FormsModule, ReactiveFormsModule],
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
 })
-export class AccountComponent implements OnInit {
+export class ProfilePage implements OnInit {
   loading = false;
   profile!: Profile;
-
-  @Input()
-  session!: Session | null;
+  session!: AuthSession;
 
   updateProfileForm = this.formBuilder.group({
     username: '',
@@ -25,10 +22,15 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private readonly supabase: SupabaseService,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.route.data.subscribe((data) => {
+      this.session = data['session'];
+    });
+
     await this.getProfile();
 
     const { username, website, avatar_url } = this.profile;
@@ -42,7 +44,13 @@ export class AccountComponent implements OnInit {
   async getProfile() {
     try {
       this.loading = true;
-      const user = this.session?.user;
+      const session = await this.supabase.session;
+      console.log(this.session);
+      if (!session) {
+        throw new Error('There is no session');
+      }
+      this.session = session;
+      const { user } = this.session;
       if (!user) {
         throw new Error('You must be logged in to get your profile');
       }

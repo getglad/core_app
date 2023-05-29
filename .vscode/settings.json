@@ -8,5 +8,13 @@
   "[dockerfile]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
-  "terminal.integrated.defaultProfile.linux": "zsh"
+  "[sql]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "mtxr.sqltools"
+  },
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "sqltools.format": {
+    "reservedWordCase": "upper",
+    "linesBetweenQueries": 2
+  }
 }
