@@ -1,4 +1,6 @@
-# master_app
+# core_app
+
+A base repo for an Angular Ionic + Supabase App that uses Tailwind as a UI Kit
 
 ## Quick Start
 
